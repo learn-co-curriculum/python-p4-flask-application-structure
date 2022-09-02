@@ -140,8 +140,8 @@ def user(username):
 
 Anything included in the route passed to the `app.route` decorator with pointy
 brackets `<>` surrounding it will be passed to the decorated function as a
-parameter. We can make sure that the username is a valid string by specifying
-this in the route:
+parameter. We can make sure that the username is a valid `string`, `int`,
+`float`, or `path` (string with slashes) by specifying this in the route:
 
 ```py
 # modify user() in app/flask_app.py
