@@ -67,6 +67,20 @@ Flask needs to set up an application structure that allows it to see everything.
 For the purposes of our curriculum, this argument will always be `__name__`,
 which refers to the name of the current module.
 
+<details>
+  <summary>
+    <em>What is the value of <code>__name__</code> when we run
+        <code>python app/flask_app.py</code>?</em>
+  </summary>
+
+  <h3><code>'__main__'</code></h3>
+  <p><code>__name__</code> is equal to the name of the module in question
+     <em>unless</em> it is the module being run from the command line. In this
+     case, it is set to <code>'__main__'</code>. This is very helpful for
+     writing scripts!</p>
+</details>
+<br/>
+
 ***
 
 ## Routing Views
@@ -91,7 +105,7 @@ decorator:
 
 @app.route('/')
 def index():
-    return '<h1>Welcome to my page!</h1>'
+    return '<h1>Welcome to my app!</h1>'
 
 ```
 
@@ -99,7 +113,7 @@ Remember that **decorators** are functions that take functions as arguments and
 return them decorated with new features. `@app.route` registers the `index()`
 function with the Flask application instance `app` and creates a rule that
 requests for the base URL should show our index: a page with a header that says
-"Welcome to my page!"
+"Welcome to my app!"
 
 ### Views
 
@@ -110,6 +124,22 @@ there are certainly many invisible things going on in views as well).
 A view returns the response that the client delivers to the user. Our `index()`
 view returns a simple string of HTML code, but we will see throughout Phase 4
 that views can also contain forms, code to ensure cybersecurity, and much more.
+
+<details>
+  <summary>
+    <em>How might the Flask application instance know to show the return value
+        of <code>index()</code> in the web browser?</em>
+  </summary>
+
+  <h3>The <code>app.route</code> decorator registers <code>index()</code> to
+      the application instance.</h3>
+  <p>"Registration" in Flask means that a view has been connected to an
+     application instance's routes.</p>
+  <p>When the instance receives a URL pointing
+     to that route, the view function is called and the return value is added
+     to the response by the instance.</p>
+</details>
+<br/>
 
 ### Variable Routes
 
@@ -138,7 +168,7 @@ def user(username):
 
 ```
 
-Anything included in the route passed to the `app.route` decorator with pointy
+Anything included in the route passed to the `app.route` decorator with angle
 brackets `<>` surrounding it will be passed to the decorated function as a
 parameter. We can make sure that the username is a valid `string`, `int`,
 `float`, or `path` (string with slashes) by specifying this in the route:
@@ -152,79 +182,101 @@ def user(username):
 
 ```
 
+<details>
+  <summary>
+    <em>How can you remove brackets and get data types and parameters out of a
+        string?</em>
+  </summary>
+
+  <h3><code>str</code> methods or the <code>re</code> module.</h3>
+
+  <p>With <code>str</code> methods:</p>
+  <p><code>url = '/&lt;string:username&gt;'</code></p>
+  <p><code>url = url.replace('/<', '')</code></p>
+  <p><code>url = url.replace('>', '')</code></p>
+  <p><code>type, parameter = url.split(':')</code></p>
+  <br/>
+  <p>With <code>re</code>:</p>
+  <p><code>exp = re.compile('[A-z]+')</code></p>
+  <p><code>type, parameter = exp.findall(url)</code></p>
+
+</details>
+<br/>
+
 Now we're ready to run our application.
 
 ***
 
 ## The Flask Development Web Server
 
-***
+In the last lesson, we ran our development server through Werkzeug. We could
+do that here, but we would have to reconfigure it to work specifically with
+our Flask application. We'll put in the work there when we have a complete
+application to show the whole world. For now, there's an easier way:
+`flask run`.
 
-## Lesson Section
-
-Lorem ipsum dolor sit amet. Ut velit fugit et porro voluptas quia sequi quo
-libero autem qui similique placeat eum velit autem aut repellendus quia. Et
-Quis magni ut fugit obcaecati in expedita fugiat est iste rerum qui ipsam
-ducimus et quaerat maxime sit eaque minus. Est molestias voluptatem et nostrum
-recusandae qui incidunt Quis 33 ipsum perferendis sed similique architecto.
-
-```py
-# python code block
-print("statement")
-# => statement
-```
-
-```js
-// javascript code block
-console.log("use these for comparisons between languages.")
-// => use these for comparisons between languages.
-```
+`flask run` is a command run from the console that looks for the name of the
+Python module with our Flask application instance. To run the application that
+we created in this lesson, we need to run two commands inside of our `pipenv`
+virtual environment:
 
 ```console
-echo "bash/zshell statement"
-# => bash/zshell statement
+$ export FLASK_APP=app/flask_app.py
+$ flask run
+# => * Serving Flask app 'app/flask_app.py'
+# => * Debug mode: off
+# => WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+# => * Running on http://127.0.0.1:5000
+# =>Press CTRL+C to quit
 ```
 
-<details>
-  <summary>
-    <em>Check for understanding text goes here! <code>Code statements go here.</code></em>
-  </summary>
+Navigate to `http://127.0.0.1:5000` and you should see the index for our
+application:
 
-  <h3>Answer.</h3>
-  <p>Elaboration on answer.</p>
-</details>
-<br/>
+![Webpage that says "Welcome to my app!"](
+https://curriculum-content.s3.amazonaws.com/python/screenshot-flask-app-structure-index.png
+)
 
-***
+Add a username to the URL. Now you should see something like this:
 
-## Instructions
+![Webpage that says ""](
+https://curriculum-content.s3.amazonaws.com/python/screenshot-flask-app-structure-username.png
+)
 
-This is a **test-driven lab**. Run `pipenv install` to create your virtual
-environment and `pipenv shell` to enter the virtual environment. Then run
-`pytest -x` to run your tests. Use these instructions and `pytest`'s error
-messages to complete your work in the `lib/` folder.
+We can also run a development server through treating our application module as
+a script with the `app.run()` method:
 
-Instructions begin here:
+```py
+# append to app/flask_app.py
 
-- Make sure to specify any class, method, variable, module, package names
-  that `pytest` will check for.
-- Any other instructions go here.
+if __name__ == '__main__':
+    app.run()
 
-Once all of your tests are passing, commit and push your work using `git` to
-submit.
+```
+
+Run the script and you should see that we're running the same server as before:
+
+```console
+$ python app/flask_app.py
+# => * Serving Flask app 'flask_app'
+# => * Debug mode: off
+# => WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+# => * Running on http://127.0.0.1:5000
+# =>Press CTRL+C to quit
+```
 
 ***
 
 ## Conclusion
 
-Conclusion summary paragraph. Include common misconceptions and what students
-will be able to do moving forward.
+You've just built your first Flask web application! It's very simple, but you'll
+use the Flask class and its decorator methods many times throughout Phase 4.
+Next, we'll get some more practice with routing and views.
 
 ***
 
 ## Resources
 
-- [Resource 1](https://www.python.org/doc/essays/blurb/)
-- [Reused Resource][reused resource]
-
-[reused resource]: https://docs.python.org/3/
+- [A Minimal Application - Flask](https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application)
+- [Routing - Flask](https://flask.palletsprojects.com/en/2.2.x/quickstart/#routing)
+- [Chapter 2. Basic Application Structure - Flask Web Development, 2nd Edition](https://learning.oreilly.com/library/view/flask-web-development/9781491991725/ch02.html#idm140583868985008)
