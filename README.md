@@ -47,7 +47,7 @@ library entirely- interacts with this `Flask` instance using WSGI.
 Before we start, make sure to enter your virtual environment with `pipenv install
 && pipenv shell`.
 
-Open `app/flask_app.py` and enter the following code:
+Open `app/app.py` and enter the following code:
 
 ```py
 #!/usr/bin/env python3
@@ -70,7 +70,7 @@ which refers to the name of the current module.
 <details>
   <summary>
     <em>What is the value of <code>__name__</code> when we run
-        <code>python app/flask_app.py</code>?</em>
+        <code>python app/app.py</code>?</em>
   </summary>
 
   <h3><code>'__main__'</code></h3>
@@ -101,7 +101,7 @@ The easiest way to define routes with Flask is through use of the `@app.route`
 decorator:
 
 ```py
-# append to app/flask_app.py
+# append to app/app.py
 
 @app.route('/')
 def index():
@@ -160,7 +160,7 @@ When we interpolate these into strings or use them to retrieve records from a
 database, we can create flexible, dynamic applications:
 
 ```py
-# append to app/flask_app.py
+# append to app/app.py
 
 @app.route('/<username>')
 def user(username):
@@ -174,7 +174,7 @@ parameter. We can make sure that the username is a valid `string`, `int`,
 `float`, or `path` (string with slashes) by specifying this in the route:
 
 ```py
-# modify user() in app/flask_app.py
+# modify user() in app/app.py
 
 @app.route('/<string:username>')
 def user(username):
@@ -221,9 +221,9 @@ we created in this lesson, we need to run two commands inside of our `pipenv`
 virtual environment:
 
 ```console
-$ export FLASK_APP=app/flask_app.py
+$ export app=app/app.py
 $ flask run
-# => * Serving Flask app 'app/flask_app.py'
+# => * Serving Flask app 'app/app.py'
 # => * Debug mode: off
 # => WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
 # => * Running on http://127.0.0.1:5000
@@ -247,7 +247,7 @@ We can also run a development server through treating our application module as
 a script with the `app.run()` method:
 
 ```py
-# append to app/flask_app.py
+# append to app/app.py
 
 if __name__ == '__main__':
     app.run()
@@ -257,8 +257,8 @@ if __name__ == '__main__':
 Run the script and you should see that we're running the same server as before:
 
 ```console
-$ python app/flask_app.py
-# => * Serving Flask app 'flask_app'
+$ python app/app.py
+# => * Serving Flask app 'app'
 # => * Debug mode: off
 # => WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
 # => * Running on http://127.0.0.1:5000
