@@ -221,16 +221,20 @@ we created in this lesson, we need to run two commands inside of our `pipenv`
 virtual environment:
 
 ```console
-$ export app=app/app.py
+$ export FLASK_APP=app/app.py
+$ export FLASK_RUN_PORT=5555
 $ flask run
 # => * Serving Flask app 'app/app.py'
 # => * Debug mode: off
 # => WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
-# => * Running on http://127.0.0.1:5000
+# => * Running on http://127.0.0.1:5555
 # =>Press CTRL+C to quit
 ```
 
-Navigate to `http://127.0.0.1:5000` and you should see the index for our
+> **NOTE: Flask's default port is 5000, which conflicts with AirPlay on MacOS.
+> we manually set the port to 5555 here to avoid this conflict.**
+
+Navigate to `http://127.0.0.1:5555` and you should see the index for our
 application:
 
 ![Webpage that says "Welcome to my app!"](
@@ -250,7 +254,7 @@ a script with the `app.run()` method:
 # append to app/app.py
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5555)
 
 ```
 
@@ -261,7 +265,7 @@ $ python app/app.py
 # => * Serving Flask app 'app'
 # => * Debug mode: off
 # => WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
-# => * Running on http://127.0.0.1:5000
+# => * Running on http://127.0.0.1:5555
 # =>Press CTRL+C to quit
 ```
 
