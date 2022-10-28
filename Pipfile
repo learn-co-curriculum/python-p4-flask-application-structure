@@ -10,6 +10,7 @@ itsdangerous = "2.1.2"
 jinja2 = "3.1.2"
 markupsafe = "2.1.1"
 werkzeug = "2.2.2"
+importlib-resources = "5.10.0"
 
 [requires]
 python_version = "3.8.13"
