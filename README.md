@@ -127,8 +127,8 @@ that views can also contain forms, code to ensure cybersecurity, and much more.
 
 <details>
   <summary>
-    <em>How might the Flask application instance know to show the return value
-        of <code>index()</code> in the web browser?</em>
+    <em>Which line of code tells Flask to show the returned data from
+        <code>index()</code> in the web browser?</em>
   </summary>
 
   <h3>The <code>app.route</code> decorator registers <code>index()</code> to
@@ -184,8 +184,8 @@ def user(username):
 
 <details>
   <summary>
-    <em>How can you remove brackets and get data types and parameters out of a
-        string?</em>
+    <em>Flask has to parse "string" and "username" from the route. How can you
+        remove brackets and get data types and parameters out of a string?</em>
   </summary>
 
   <h3><code>str</code> methods or the <code>re</code> module.</h3>
