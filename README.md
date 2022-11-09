@@ -112,7 +112,7 @@ def index():
 Remember that **decorators** are functions that take functions as arguments and
 return them decorated with new features. `@app.route` registers the `index()`
 function with the Flask application instance `app`. The `@app.route()` decorator
-is an instance method that modifies `app`, creating a rule thatrequests for the
+is an instance method that modifies `app`, creating a rule that requests for the
 base URL (`/`) should show our index: a page with a header that says "Welcome to
 my app!"
 
@@ -186,7 +186,7 @@ def user(username):
 <details>
   <summary>
     <em>Flask has to parse "string" and "username" from the route. How can you
-        remove brackets and get data types and parameters out of a string?</em>
+        use Python to remove brackets and get parameters out of a string?</em>
   </summary>
 
   <h3><code>str</code> methods or the <code>re</code> module.</h3>
