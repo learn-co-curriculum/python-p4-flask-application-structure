@@ -238,13 +238,13 @@ Navigate to `http://127.0.0.1:5555` and you should see the index for our
 application:
 
 ![Webpage that says "Welcome to my app!"](
-https://curriculum-content.s3.amazonaws.com/python/screenshot-flask-app-structure-index.png
+https://curriculum-content.s3.amazonaws.com/python/flask-application-structure-1.png
 )
 
 Add a username to the URL. Now you should see something like this:
 
-![Webpage that says ""](
-https://curriculum-content.s3.amazonaws.com/python/screenshot-flask-app-structure-username.png
+![Webpage that says "Profile for Mr-User"](
+https://curriculum-content.s3.amazonaws.com/python/flask-application-structure-2.png
 )
 
 We can also run a development server through treating our application module as
