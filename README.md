@@ -47,11 +47,9 @@ library entirely- interacts with this `Flask` instance using WSGI.
 Before we start, make sure to enter your virtual environment with `pipenv install
 && pipenv shell`.
 
-Open `app/app.py` and enter the following code:
+Open `server/app.py` and enter the following code:
 
 ```py
-#!/usr/bin/env python3
-
 from flask import Flask
 
 app = Flask(__name__)
@@ -70,7 +68,7 @@ which refers to the name of the current module.
 <details>
   <summary>
     <em>What is the value of <code>__name__</code> when we run
-        <code>python app/app.py</code>?</em>
+        <code>python server/app.py</code>?</em>
   </summary>
 
   <h3><code>'__main__'</code></h3>
@@ -101,7 +99,7 @@ The easiest way to define routes with Flask is through use of the `@app.route`
 decorator:
 
 ```py
-# append to app/app.py
+# append to server/app.py
 
 @app.route('/')
 def index():
@@ -161,7 +159,7 @@ When we interpolate these into strings or use them to retrieve records from a
 database, we can create flexible, dynamic applications:
 
 ```py
-# append to app/app.py
+# append to server/app.py
 
 @app.route('/<username>')
 def user(username):
@@ -175,7 +173,7 @@ parameter. We can make sure that the username is a valid `string`, `int`,
 `float`, or `path` (string with slashes) by specifying this in the route:
 
 ```py
-# modify user() in app/app.py
+# modify user() in server/app.py
 
 @app.route('/<string:username>')
 def user(username):
@@ -219,13 +217,13 @@ application to show the whole world. For now, there's an easier way:
 `flask run` is a command run from the console that looks for the name of the
 Python module with our Flask application instance. To run the application that
 we created in this lesson, we need to run two commands inside of our `pipenv`
-virtual environment:
+virtual environment, from the `server/` directory:
 
 ```console
-$ export FLASK_APP=app/app.py
+$ export FLASK_APP=app.py
 $ export FLASK_RUN_PORT=5555
 $ flask run
-# => * Serving Flask app 'app/app.py'
+# => * Serving Flask app 'app.py'
 # => * Debug mode: off
 # => WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
 # => * Running on http://127.0.0.1:5555
@@ -252,23 +250,35 @@ We can also run a development server through treating our application module as
 a script with the `app.run()` method:
 
 ```py
-# append to app/app.py
+# append to server/app.py
 
 if __name__ == '__main__':
-    app.run(port=5555)
+    app.run(port=5555, debug=True)
 
 ```
 
 Run the script and you should see that we're running the same server as before:
 
 ```console
-$ python app/app.py
+$ python app.py
 # => * Serving Flask app 'app'
 # => * Debug mode: off
 # => WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
 # => * Running on http://127.0.0.1:5555
 # =>Press CTRL+C to quit
 ```
+
+`debug=True` provides us many benefits for development, but the nicest of these
+is that the server will _automatically restart_ whenever we change `app.py`!
+
+There are pros and cons to each approach. Configuring the `FLASK_APP` and
+`FLASK_RUN_PORT` environment variables allows us to use tools like the Flask
+shell, but it's easy to forget about environment variables since they don't show
+up in your project directory.
+
+Running from a script isn't quite as Flasky, but it keeps all of our
+configuration in sight. We also still have access to these Flask tools as
+written, because `flask run` and `flask shell` look for `app.py` by default!
 
 ***
 
@@ -280,7 +290,7 @@ Next, we'll get some more practice with routing and views.
 
 ***
 
-## Solution
+## Solution Code
 
 ```py
 from flask import Flask
@@ -296,7 +306,7 @@ def user(username):
     return f'<h1>Profile for {username}</h1>'
 
 if __name__ == '__main__':
-    app.run(port=5555)
+    app.run(port=5555, debug=True)
 ```
 
 ***
