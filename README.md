@@ -236,9 +236,12 @@ $ flask run
 Navigate to `http://127.0.0.1:5555` and you should see the index for our
 application:
 
-![Webpage that says "Welcome to my app!"](
+![Webpage that says "Welcome to my page!"](
 https://curriculum-content.s3.amazonaws.com/python/flask-application-structure-1.png
 )
+
+> **NOTE: "localhost" is the plain-English version of 127.0.0.1 on most
+> machines. You will often see the two used interchangeably.**
 
 Add a username to the URL. Now you should see something like this:
 
