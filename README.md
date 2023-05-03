@@ -283,12 +283,6 @@ Running from a script isn't quite as Flasky, but it keeps all of our
 configuration in sight. We also still have access to these Flask tools as
 written, because `flask run` and `flask shell` look for `app.py` by default!
 
-> **Note: We don't use the Flask shell often in this curriculum because of the
-> dependencies we introduce throughout Phase 4- `ipdb` scripts provide us a bit
-> more flexibility in most of our use cases. We will discuss the Flask shell and
-> its benefits a bit later on in this module, and we encourage you to dig deeper
-> to see if it will be a valuable tool for you in your own development.**
-
 ***
 
 ## Conclusion
